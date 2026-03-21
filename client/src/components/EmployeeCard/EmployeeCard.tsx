@@ -1,3 +1,5 @@
+import StatusDropdown from "../StatusDropdown/StatusDropdown";
+
 type Status = "Working" | "OnVacation" | "LunchTime" | "BusinessTrip";
 
 interface Employee {
@@ -9,11 +11,10 @@ interface Employee {
 
 interface EmployeeCardProps {
   employee: Employee;
+  onStatusChange: (id: number, status: Status) => void;
 }
 
-const EmployeeCard = ({
-  employee,
-}: EmployeeCardProps) => {
+const EmployeeCard = ({ employee, onStatusChange }: EmployeeCardProps) => {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 p-5 hover:shadow-md transition-shadow">
       <img
@@ -28,6 +29,12 @@ const EmployeeCard = ({
         <p className="font-semibold text-gray-800 text-base mb-1 truncate">
           {employee.name}
         </p>
+        <div>
+          <StatusDropdown
+            status={employee.status}
+            onStatusChange={(status) => onStatusChange(employee.id, status)}
+          />
+        </div>
       </div>
     </div>
   );

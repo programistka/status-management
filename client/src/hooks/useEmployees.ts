@@ -1,4 +1,4 @@
-import { use } from "react";
+import { use, useState } from "react";
 
 type Status = "Working" | "OnVacation" | "LunchTime" | "BusinessTrip";
 
@@ -17,13 +17,22 @@ const fetchEmployees = async (): Promise<Employee[]> => {
   return response.json();
 };
 
-let employeesPromise: Promise<Employee[]> | null = null;
+const employeesPromise: Promise<Employee[]> = fetchEmployees();
 
 export const useEmployees = () => {
-  if (!employeesPromise) {
-    employeesPromise = fetchEmployees();
-  }
+  const initialEmployees = use(employeesPromise);
+  const [employees, setEmployees] = useState(initialEmployees);
 
-  const employees = use(employeesPromise);
-  return { employees };
+  const updateStatus = async (id: number, status: Status) => {
+    await fetch(`http://localhost:3001/users/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status }),
+    });
+    setEmployees((prev) =>
+      prev.map((e) => (e.id === id ? { ...e, status } : e)),
+    );
+  };
+
+  return { employees, updateStatus };
 };

@@ -3,7 +3,7 @@ import EmployeeCard from "../EmployeeCard/EmployeeCard";
 import { useEmployees } from "../../hooks/useEmployees";
 
 const EmployeesPanel = () => {
-  const { employees } = useEmployees();
+  const { employees, updateStatus } = useEmployees();
 
   return (
     <main className="px-8 pb-8">
@@ -13,6 +13,7 @@ const EmployeesPanel = () => {
           <EmployeeCard
             key={employee.id}
             employee={employee}
+            onStatusChange={updateStatus}
           />
         ))}
       </div>
