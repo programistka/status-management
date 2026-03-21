@@ -1,8 +1,13 @@
-export const EmployeesPanel = () => {
+import Search from "../Search/Search";
+
+const EmployeesPanel = () => {
   return (
-    <div>
+    <main className="px-8 pb-8">
+      <Search />
       <h2>Employees Panel</h2>
       <p>Test Employees Panel Content</p>
-    </div>
+    </main>
   );
 };
+
+export default EmployeesPanel;
