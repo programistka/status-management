@@ -36,6 +36,15 @@ describe("StatusDropdown", () => {
     expect(onStatusChange).toHaveBeenCalledWith("OnVacation");
   });
 
+  it("closes dropdown when Escape is pressed", async () => {
+    render(<StatusDropdown status="Working" onStatusChange={vi.fn()} />);
+
+    await userEvent.click(screen.getByRole("button"));
+    await userEvent.keyboard("{Escape}");
+
+    expect(screen.queryByText("On Vacation")).not.toBeInTheDocument();
+  });
+
   it("closes dropdown after selecting a status", async () => {
     render(<StatusDropdown status="Working" onStatusChange={vi.fn()} />);
 
