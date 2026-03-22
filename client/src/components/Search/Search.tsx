@@ -1,5 +1,5 @@
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/20/solid";
-import { useQuery, useSetQuery } from "../../context/FiltersContext";
+import { useQuery, useSetQuery } from "@/context/FiltersContext";
 
 const Search = () => {
   const query = useQuery();

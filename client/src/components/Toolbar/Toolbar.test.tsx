@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { FiltersProvider } from "../../context/FiltersContext";
+import { FiltersProvider } from "@/context/FiltersContext";
 import Toolbar from "./Toolbar";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

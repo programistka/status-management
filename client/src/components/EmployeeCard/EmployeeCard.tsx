@@ -1,7 +1,7 @@
 import { memo, useCallback } from "react";
-import Avatar from "../Avatar/Avatar";
-import StatusSelect from "../StatusSelect/StatusSelect";
-import { type Status, type Employee } from "../../types";
+import Avatar from "@/components/Avatar/Avatar";
+import StatusSelect from "@/components/StatusSelect/StatusSelect";
+import { type Status, type Employee } from "@/types";
 
 interface EmployeeCardProps {
   employee: Employee;

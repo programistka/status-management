@@ -1,9 +1,9 @@
 import { memo } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { useDropdown } from "../../hooks/useDropdown";
-import { type Status, STATUSES } from "../../types";
-import { STATUS_CONFIG } from "../../statusConfig";
-import { cn } from "../../lib/cn";
+import { useDropdown } from "@/hooks/useDropdown";
+import { type Status, STATUSES } from "@/types";
+import { STATUS_CONFIG } from "@/statusConfig";
+import { cn } from "@/lib/cn";
 
 interface StatusSelectProps {
   value: Status | null;

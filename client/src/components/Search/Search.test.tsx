@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { FiltersProvider } from "../../context/FiltersContext";
+import { FiltersProvider } from "@/context/FiltersContext";
 import Search from "./Search";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

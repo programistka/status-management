@@ -1,5 +1,5 @@
-import FilterByStatus from "../FilterByStatus/FilterByStatus";
-import Search from "../Search/Search";
+import FilterByStatus from "@/components/FilterByStatus/FilterByStatus";
+import Search from "@/components/Search/Search";
 
 const Filters = () => (
   <div className="flex items-center gap-0 flex-1">

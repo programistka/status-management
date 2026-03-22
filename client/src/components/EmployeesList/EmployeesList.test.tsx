@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { FiltersProvider } from "../../context/FiltersContext";
-import { useEmployees } from "../../hooks/useEmployees";
+import { FiltersProvider } from "@/context/FiltersContext";
+import { useEmployees } from "@/hooks/useEmployees";
 import EmployeesList from "./EmployeesList";
 
-vi.mock("../../hooks/useEmployees");
+vi.mock("@/hooks/useEmployees");
 
 const mockEmployees = [
   { id: 1, name: "John Doe", img: "/john.jpg", status: "Working" as const },

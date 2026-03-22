@@ -1,5 +1,5 @@
-import { useStatusFilter, useSetStatusFilter } from "../../context/FiltersContext";
-import StatusSelect from "../StatusSelect/StatusSelect";
+import { useStatusFilter, useSetStatusFilter } from "@/context/FiltersContext";
+import StatusSelect from "@/components/StatusSelect/StatusSelect";
 
 const FilterByStatus = () => {
   const statusFilter = useStatusFilter();

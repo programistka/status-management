@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import  { type Status, STATUSES } from "../../types.ts"
-import { STATUS_CONFIG } from "../../statusConfig.ts";
+import { type Status, STATUSES } from "@/types";
+import { STATUS_CONFIG } from "@/statusConfig";
 
 interface CreateEmployeeModalProps {
   onClose: () => void;

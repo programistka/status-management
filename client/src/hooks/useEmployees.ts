@@ -1,5 +1,5 @@
 import { use, useCallback, useOptimistic, useState, useTransition } from "react";
-import { type Status, type Employee } from "../types";
+import { type Status, type Employee } from "@/types";
 
 const API_URL = import.meta.env.VITE_API_URL;
 

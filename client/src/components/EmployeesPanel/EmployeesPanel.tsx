@@ -1,6 +1,6 @@
-import { FiltersProvider } from "../../context/FiltersContext";
-import EmployeesList from "../EmployeesList/EmployeesList";
-import Toolbar from "../Toolbar/Toolbar";
+import { FiltersProvider } from "@/context/FiltersContext";
+import EmployeesList from "@/components/EmployeesList/EmployeesList";
+import Toolbar from "@/components/Toolbar/Toolbar";
 
 const EmployeesPanel = () => (
   <FiltersProvider>

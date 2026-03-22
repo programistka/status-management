@@ -2,9 +2,9 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import EmployeesPanel from "./EmployeesPanel";
-import { useEmployees } from "../../hooks/useEmployees";
+import { useEmployees } from "@/hooks/useEmployees";
 
-vi.mock("../../hooks/useEmployees");
+vi.mock("@/hooks/useEmployees");
 
 const mockEmployees = [
   { id: 1, name: "John Doe", img: "/john.jpg", status: "Working" as const },

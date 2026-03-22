@@ -1,7 +1,7 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
 import { Suspense, type ReactNode } from "react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { type Employee, type Status } from "../types";
+import { type Employee, type Status } from "@/types";
 
 const mockEmployees: Employee[] = [
   { id: 1, name: "Alice Johnson", img: "/alice.jpg", status: "Working" },

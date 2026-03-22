@@ -6,7 +6,7 @@ import {
   type ReactNode,
   type SetStateAction,
 } from "react";
-import { type Status } from "../types";
+import { type Status } from "@/types";
 
 // Four separate contexts instead of one combined object to avoid unnecessary re-renders.
 // Consumers of query (Search, EmployeesList) won't re-render when statusFilter changes,

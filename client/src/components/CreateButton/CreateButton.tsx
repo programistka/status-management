@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PlusIcon } from "@heroicons/react/20/solid";
-import CreateEmployeeModal from "../CreateEmployeeModal/CreateEmployeeModal";
+import CreateEmployeeModal from "@/components/CreateEmployeeModal/CreateEmployeeModal";
 
 const CreateButton = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
