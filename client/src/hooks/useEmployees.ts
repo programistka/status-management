@@ -30,16 +30,18 @@ export const useEmployees = () => {
   const updateStatus = useCallback((id: number, status: Status) => {
     startTransition(async () => {
       setOptimisticStatus({ id, status });
-      const response = await fetch(`${API_URL}/users/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status }),
-      });
-      if (response.ok) {
-        setEmployees((prev) =>
-          prev.map((e) => (e.id === id ? { ...e, status } : e)),
-        );
+      try {
+        await fetch(`${API_URL}/users/${id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status }),
+        });
+      } catch {
+        // server unavailable — still persist locally
       }
+      setEmployees((prev) =>
+        prev.map((e) => (e.id === id ? { ...e, status } : e)),
+      );
     });
   }, [setOptimisticStatus]);
 
