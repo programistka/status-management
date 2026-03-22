@@ -36,6 +36,29 @@ describe("FilterByStatus", () => {
     expect(screen.queryByText("Filter by status")).not.toBeInTheDocument();
   });
 
+  it("closes dropdown when Escape is pressed", async () => {
+    render(<FilterByStatus />, { wrapper });
+
+    await userEvent.click(screen.getByRole("button"));
+    await userEvent.keyboard("{Escape}");
+
+    expect(screen.queryByText("All statuses")).not.toBeInTheDocument();
+  });
+
+  it("closes dropdown when clicking outside", async () => {
+    render(
+      <div>
+        <div data-testid="outside">outside</div>
+        <FiltersProvider><FilterByStatus /></FiltersProvider>
+      </div>,
+    );
+
+    await userEvent.click(screen.getByRole("button"));
+    await userEvent.click(screen.getByTestId("outside"));
+
+    expect(screen.queryByText("All statuses")).not.toBeInTheDocument();
+  });
+
   it("resets to default label after selecting All statuses", async () => {
     render(<FilterByStatus />, { wrapper });
 
