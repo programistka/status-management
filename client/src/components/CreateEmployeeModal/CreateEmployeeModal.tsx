@@ -35,7 +35,7 @@ const CreateEmployeeModal = ({ onClose }: CreateEmployeeModalProps) => {
               <input
                   type="text"
                   value={name}
-                  onChange={(e) => setName(e.target.value.replace(/[^a-zA-Z]/g, ""))}
+                  onChange={(e) => setName(e.target.value.replace(/[^a-zA-Z ]/g, ""))}
                   placeholder="Enter user name"
                   className="w-full border-0 border-b border-gray-200 pb-2 text-gray-800 text-base focus:outline-none focus:border-blue-400 transition-colors"
               />
