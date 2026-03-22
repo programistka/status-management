@@ -43,14 +43,16 @@ const CreateEmployeeModal = ({ onClose }: CreateEmployeeModalProps) => {
 
             <div className="mb-8">
               <label className="block text-xs text-gray-400 mb-1">Status:</label>
-              <StatusSelect value={status} onChange={(s) => { if (s) setStatus(s); }} />
+              <div className="-ml-4">
+                <StatusSelect value={status} onChange={(s) => { if (s) setStatus(s); }} />
+              </div>
             </div>
 
             <div className="flex items-center gap-4">
               <button
                   onClick={onClose}
                   disabled={name.trim().length === 0}
-                  className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-full text-sm font-medium transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-blue-500"
+                  className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded text-sm font-medium transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-blue-500"
               >
                 Create
               </button>

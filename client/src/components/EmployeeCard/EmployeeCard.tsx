@@ -17,7 +17,7 @@ const EmployeeCard = memo(({ employee: { id, name, img, status }, onStatusChange
   );
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 p-5 hover:shadow-md transition-shadow">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-100 flex items-end gap-4 p-5 hover:shadow-md transition-shadow">
       <Avatar src={img} name={name} />
       <div className="min-w-0">
         <p className="font-semibold text-gray-800 text-base mb-1 truncate">

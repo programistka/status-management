@@ -18,7 +18,7 @@ const Avatar = ({ src, name }: AvatarProps) => {
 
   if (failed) {
     return (
-      <div className="w-20 h-20 rounded-full shrink-0 bg-blue-100 flex items-center justify-center">
+      <div className="w-24 h-24 rounded-full shrink-0 bg-blue-100 flex items-center justify-center">
         <span className="text-blue-500 text-xl font-semibold">{getInitials(name)}</span>
       </div>
     );
@@ -28,7 +28,7 @@ const Avatar = ({ src, name }: AvatarProps) => {
     <img
       src={src}
       alt={name}
-      className="w-20 h-20 rounded-full object-cover shrink-0"
+      className="w-24 h-24 rounded-full object-cover shrink-0"
       onError={() => setFailed(true)}
     />
   );
