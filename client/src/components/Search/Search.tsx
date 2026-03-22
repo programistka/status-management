@@ -1,4 +1,4 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/20/solid";
 
 interface SearchProps {
   query: string;
@@ -15,6 +15,11 @@ const Search = ({ query, onQueryChange }: SearchProps) => (
       placeholder="Type to search"
       className="flex-1 py-3.5 text-sm text-gray-600 placeholder-gray-400 focus:outline-none bg-transparent"
     />
+    {query && (
+      <button onClick={() => onQueryChange("")} className="text-gray-400 hover:text-gray-600 transition-colors shrink-0">
+        <XMarkIcon className="w-4 h-4" />
+      </button>
+    )}
   </div>
 );
 
