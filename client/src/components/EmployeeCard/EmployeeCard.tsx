@@ -1,6 +1,6 @@
 import { memo, useCallback } from "react";
 import Avatar from "../Avatar/Avatar";
-import StatusDropdown from "../StatusDropdown/StatusDropdown";
+import StatusSelect from "../StatusSelect/StatusSelect";
 import { type Status, type Employee } from "../../types";
 
 interface EmployeeCardProps {
@@ -10,7 +10,9 @@ interface EmployeeCardProps {
 
 const EmployeeCard = memo(({ employee: { id, name, img, status }, onStatusChange }: EmployeeCardProps) => {
   const handleStatusChange = useCallback(
-    (newStatus: Status) => onStatusChange(id, newStatus),
+    (newStatus: Status | null) => {
+      if (newStatus !== null) onStatusChange(id, newStatus);
+    },
     [id, onStatusChange],
   );
 
@@ -22,9 +24,10 @@ const EmployeeCard = memo(({ employee: { id, name, img, status }, onStatusChange
           {name}
         </p>
         <div>
-          <StatusDropdown
-            status={status}
-            onStatusChange={handleStatusChange}
+          <StatusSelect
+            value={status}
+            onChange={handleStatusChange}
+            variant="compact"
           />
         </div>
       </div>
