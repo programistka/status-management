@@ -1,4 +1,4 @@
-import { use, useState } from "react";
+import { use, useOptimistic, useState } from "react";
 
 type Status = "Working" | "OnVacation" | "LunchTime" | "BusinessTrip";
 
@@ -22,8 +22,14 @@ const employeesPromise: Promise<Employee[]> = fetchEmployees();
 export const useEmployees = () => {
   const initialEmployees = use(employeesPromise);
   const [employees, setEmployees] = useState(initialEmployees);
+  const [optimisticEmployees, setOptimisticStatus] = useOptimistic(
+    employees,
+    (state, { id, status }: { id: number; status: Status }) =>
+      state.map((e) => (e.id === id ? { ...e, status } : e)),
+  );
 
   const updateStatus = async (id: number, status: Status) => {
+    setOptimisticStatus({ id, status });
     await fetch(`http://localhost:3001/users/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -34,5 +40,5 @@ export const useEmployees = () => {
     );
   };
 
-  return { employees, updateStatus };
+  return { employees: optimisticEmployees, updateStatus };
 };
