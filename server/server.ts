@@ -35,7 +35,7 @@ app.get("/users", (_req: Request, res: Response<Employee[]>) => {
   res.json(employees);
 });
 
-app.post<{ id: string }, Employee[] | ApiError, { status: Status }>(
+app.patch<{ id: string }, Employee[] | ApiError, { status: Status }>(
   "/users/:id",
   (req, res) => {
     const index = employees.findIndex((emp) => emp.id === +req.params.id);
