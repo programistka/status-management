@@ -16,14 +16,20 @@ describe("CreateEmployeeModal", () => {
     expect(screen.getByPlaceholderText("Enter user name")).toBeInTheDocument();
   });
 
-  it("renders status select with all options", () => {
+  it("renders status select showing the default status", () => {
     render(<CreateEmployeeModal onClose={vi.fn()} />);
 
-    expect(screen.getByRole("combobox")).toBeInTheDocument();
-    expect(screen.getByRole("option", { name: "Working" })).toBeInTheDocument();
-    expect(screen.getByRole("option", { name: "On Vacation" })).toBeInTheDocument();
-    expect(screen.getByRole("option", { name: "Lunch Time" })).toBeInTheDocument();
-    expect(screen.getByRole("option", { name: "Business Trip" })).toBeInTheDocument();
+    expect(screen.getByText("Working")).toBeInTheDocument();
+  });
+
+  it("shows all status options after clicking the status select", async () => {
+    render(<CreateEmployeeModal onClose={vi.fn()} />);
+
+    await userEvent.click(screen.getByText("Working"));
+
+    expect(screen.getByText("On Vacation")).toBeInTheDocument();
+    expect(screen.getByText("Lunch Time")).toBeInTheDocument();
+    expect(screen.getByText("Business Trip")).toBeInTheDocument();
   });
 
   it("updates name input value when typing", async () => {

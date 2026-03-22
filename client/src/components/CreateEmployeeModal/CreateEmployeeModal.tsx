@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { type Status, STATUSES } from "@/types";
-import { STATUS_CONFIG } from "@/statusConfig";
+import { type Status } from "@/types";
+import StatusSelect from "@/components/StatusSelect/StatusSelect";
 
 interface CreateEmployeeModalProps {
   onClose: () => void;
 }
-
-const isStatus = (value: string): value is Status =>
-    STATUSES.includes(value as Status);
 
 const CreateEmployeeModal = ({ onClose }: CreateEmployeeModalProps) => {
   const [name, setName] = useState("");
@@ -47,22 +43,7 @@ const CreateEmployeeModal = ({ onClose }: CreateEmployeeModalProps) => {
 
             <div className="mb-8">
               <label className="block text-xs text-gray-400 mb-1">Status:</label>
-              <div className="relative">
-                <select
-                    value={status}
-                    onChange={(e) => {
-                      if (isStatus(e.target.value)) setStatus(e.target.value);
-                    }}
-                    className="w-full appearance-none border-0 border-b border-gray-200 pb-2 text-gray-800 text-base focus:outline-none focus:border-blue-400 transition-colors bg-transparent cursor-pointer pr-6"
-                >
-                  {STATUSES.map((s) => (
-                      <option key={s} value={s}>
-                        {STATUS_CONFIG[s].label}
-                      </option>
-                  ))}
-                </select>
-                <ChevronDownIcon className="absolute right-0 bottom-3 w-4 h-4 text-gray-400 pointer-events-none" />
-              </div>
+              <StatusSelect value={status} onChange={(s) => { if (s) setStatus(s); }} />
             </div>
 
             <div className="flex items-center gap-4">
