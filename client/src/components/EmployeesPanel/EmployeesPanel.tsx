@@ -1,6 +1,7 @@
 import { useDeferredValue, useMemo, useState } from "react";
 import Toolbar from "../Toolbar/Toolbar";
 import EmployeesList from "../EmployeesList/EmployeesList";
+import EmptyState from "../EmptyState/EmptyState";
 import { useEmployees } from "../../hooks/useEmployees";
 import { type Status } from "../../types";
 
@@ -27,7 +28,7 @@ const EmployeesPanel = () => {
         onStatusFilterChange={setStatusFilter}
       />
       {filteredEmployees.length === 0 ? (
-        <p className="text-gray-400 text-sm mt-6">No employees found for filter.</p>
+        <EmptyState />
       ) : (
         <EmployeesList employees={filteredEmployees} onStatusChange={updateStatus} />
       )}
