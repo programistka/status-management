@@ -1,8 +1,10 @@
 import { use, useCallback, useOptimistic, useState, useTransition } from "react";
 import { type Status, type Employee } from "../types";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const fetchEmployees = async (): Promise<Employee[]> => {
-  const response = await fetch("http://localhost:3001/users");
+  const response = await fetch(`${API_URL}/users`);
   if (!response.ok) {
     throw new Error("Failed to fetch employees");
   }
@@ -24,7 +26,7 @@ export const useEmployees = () => {
   const updateStatus = useCallback((id: number, status: Status) => {
     startTransition(async () => {
       setOptimisticStatus({ id, status });
-      await fetch(`http://localhost:3001/users/${id}`, {
+      await fetch(`${API_URL}/users/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status }),
