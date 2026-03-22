@@ -1,22 +1,88 @@
+import { useState } from "react";
+import  { type Status, STATUSES } from "../../types.ts"
+import { STATUS_CONFIG } from "../../statusConfig.ts";
+
 interface CreateUserModalProps {
   onClose: () => void;
 }
 
+const isStatus = (value: string): value is Status =>
+    STATUSES.includes(value as Status);
+
 const CreateUserModal = ({ onClose }: CreateUserModalProps) => {
+  const [name, setName] = useState("");
+  const [status, setStatus] = useState<Status>("Working");
+
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-gray-800">Create User</h2>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
-          >
-            ✕
-          </button>
+      <div
+          className="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
+          onClick={onClose}
+      >
+        <div
+            className="bg-white rounded-xl w-full max-w-md mx-4 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+        >
+          <div className="p-8">
+            <h2 className="text-lg font-semibold text-gray-800 mb-6">Create New User</h2>
+
+            <div className="mb-5">
+              <label className="block text-xs text-gray-400 mb-1">User name:</label>
+              <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value.replace(/[^a-zA-Z ]/g, ""))}
+                  placeholder="Enter user name"
+                  className="w-full border-0 border-b border-gray-200 pb-2 text-gray-800 text-base focus:outline-none focus:border-blue-400 transition-colors"
+              />
+            </div>
+
+            <div className="mb-8">
+              <label className="block text-xs text-gray-400 mb-1">Status:</label>
+              <div className="relative">
+                <select
+                    value={status}
+                    onChange={(e) => {
+                      if (isStatus(e.target.value)) setStatus(e.target.value);
+                    }}
+                    className="w-full appearance-none border-0 border-b border-gray-200 pb-2 text-gray-800 text-base focus:outline-none focus:border-blue-400 transition-colors bg-transparent cursor-pointer pr-6"
+                >
+                  {STATUSES.map((s) => (
+                      <option key={s} value={s}>
+                        {STATUS_CONFIG[s].label}
+                      </option>
+                  ))}
+                </select>
+                <svg
+                    className="absolute right-0 bottom-3 w-4 h-4 text-gray-400 pointer-events-none"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                >
+                  <path
+                      fillRule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                      clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <button
+                  onClick={onClose}
+                  className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-full text-sm font-medium transition-colors"
+              >
+                Create
+              </button>
+              <button
+                  onClick={onClose}
+                  className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 

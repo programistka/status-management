@@ -1,20 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-
-type Status = "Working" | "OnVacation" | "LunchTime" | "BusinessTrip";
+import { type Status, STATUSES } from "../../types";
+import { STATUS_CONFIG } from "../../statusConfig";
 
 interface StatusDropdownProps {
   status: Status;
   onStatusChange: (status: Status) => void;
 }
-
-const STATUSES: Status[] = ["Working", "OnVacation", "LunchTime", "BusinessTrip"];
-
-const STATUS_CONFIG: Record<Status, { label: string; color: string }> = {
-  Working: { label: "Working", color: "bg-green-500" },
-  OnVacation: { label: "On Vacation", color: "bg-blue-500" },
-  LunchTime: { label: "Lunch Time", color: "bg-orange-500" },
-  BusinessTrip: { label: "Business Trip", color: "bg-purple-500" },
-};
 
 const StatusDropdown = ({ status, onStatusChange }: StatusDropdownProps) => {
   const [open, setOpen] = useState(false);

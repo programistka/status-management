@@ -1,13 +1,5 @@
 import { use, useOptimistic, useState } from "react";
-
-type Status = "Working" | "OnVacation" | "LunchTime" | "BusinessTrip";
-
-interface Employee {
-  id: number;
-  name: string;
-  status: Status;
-  img: string;
-}
+import { type Status, type Employee } from "../types";
 
 const fetchEmployees = async (): Promise<Employee[]> => {
   const response = await fetch("http://localhost:3001/users");
