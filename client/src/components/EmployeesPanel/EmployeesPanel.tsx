@@ -1,5 +1,6 @@
 import { useDeferredValue, useMemo, useState } from "react";
-import Search from "../Search/Search";
+import Filters from "../Filters/Filters";
+import CreateButton from "../CreateButton/CreateButton";
 import EmployeeCard from "../EmployeeCard/EmployeeCard";
 import { useEmployees } from "../../hooks/useEmployees";
 import { type Status } from "../../types";
@@ -20,12 +21,15 @@ const EmployeesPanel = () => {
 
   return (
     <main className="px-8 pb-8">
-      <Search
-        query={query}
-        onQueryChange={setQuery}
-        statusFilter={statusFilter}
-        onStatusFilterChange={setStatusFilter}
-      />
+      <div className="flex items-center mb-8 bg-white rounded-lg shadow-sm">
+        <CreateButton />
+        <Filters
+          query={query}
+          onQueryChange={setQuery}
+          statusFilter={statusFilter}
+          onStatusFilterChange={setStatusFilter}
+        />
+      </div>
       {filteredEmployees.length === 0 ? (
         <p className="text-gray-400 text-sm mt-6">No employees found for filter.</p>
       ) : (
