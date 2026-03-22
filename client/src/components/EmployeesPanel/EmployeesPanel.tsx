@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useDeferredValue, useMemo, useState } from "react";
 import Search from "../Search/Search";
 import EmployeeCard from "../EmployeeCard/EmployeeCard";
 import { useEmployees } from "../../hooks/useEmployees";
@@ -6,9 +6,13 @@ import { useEmployees } from "../../hooks/useEmployees";
 const EmployeesPanel = () => {
   const { employees, updateStatus } = useEmployees();
   const [query, setQuery] = useState("");
+  const deferredQuery = useDeferredValue(query);
 
-  const filteredEmployees = employees.filter(({ name }) =>
-    name.toLowerCase().includes(query.toLowerCase()),
+  const filteredEmployees = useMemo(
+    () => employees.filter(({ name }) =>
+      name.toLowerCase().includes(deferredQuery.toLowerCase()),
+    ),
+    [employees, deferredQuery],
   );
 
   return (
