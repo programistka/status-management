@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-100">
       <Header />
-      <ErrorBoundary fallbackRender={() => <ErrorState />} onReset={resetEmployeesPromise}>
+      <ErrorBoundary FallbackComponent={ErrorState} onReset={resetEmployeesPromise}>
         <Suspense fallback={<LoadingState />}>
           <EmployeesPanel />
         </Suspense>
