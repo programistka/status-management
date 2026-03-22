@@ -11,7 +11,11 @@ const fetchEmployees = async (): Promise<Employee[]> => {
   return response.json();
 };
 
-const employeesPromise: Promise<Employee[]> = fetchEmployees();
+export let employeesPromise: Promise<Employee[]> = fetchEmployees();
+
+export const resetEmployeesPromise = () => {
+  employeesPromise = fetchEmployees();
+};
 
 export const useEmployees = () => {
   const initialEmployees = use(employeesPromise);
