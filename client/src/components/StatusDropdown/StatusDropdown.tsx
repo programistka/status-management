@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { type Status, STATUSES } from "../../types";
 import { STATUS_CONFIG } from "../../statusConfig";
+import { cn } from "../../lib/cn";
 
 interface StatusDropdownProps {
   status: Status;
@@ -36,9 +37,9 @@ const StatusDropdown = ({ status, onStatusChange }: StatusDropdownProps) => {
         onClick={() => setOpen((v) => !v)}
         className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 focus:outline-none"
       >
-        <span className={`w-2 h-2 rounded-full ${config.color} shrink-0`} />
+        <span className={cn("w-2 h-2 rounded-full shrink-0", config.color)} />
         <span>{config.label}</span>
-        <ChevronDownIcon className={`w-3 h-3 ml-0.5 transition-transform ${open ? "rotate-180" : ""}`} />
+        <ChevronDownIcon className={cn("w-3 h-3 ml-0.5 transition-transform", open && "rotate-180")} />
       </button>
 
       {open && (
@@ -52,11 +53,9 @@ const StatusDropdown = ({ status, onStatusChange }: StatusDropdownProps) => {
                   onStatusChange(s);
                   setOpen(false);
                 }}
-                className={`w-full flex items-center gap-2 px-3 py-2 text-sm text-left hover:bg-gray-50 ${
-                  s === status ? "font-medium text-gray-800" : "text-gray-600"
-                }`}
+                className={cn("w-full flex items-center gap-2 px-3 py-2 text-sm text-left hover:bg-gray-50", s === status ? "font-medium text-gray-800" : "text-gray-600")}
               >
-                <span className={`w-2 h-2 rounded-full ${sc.color} shrink-0`} />
+                <span className={cn("w-2 h-2 rounded-full shrink-0", sc.color)} />
                 {sc.label}
               </button>
             );

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { type Status, STATUSES } from "../../types";
 import { STATUS_CONFIG } from "../../statusConfig";
+import { cn } from "../../lib/cn";
 
 interface FilterByStatusProps {
   statusFilter: Status | null;
@@ -19,20 +20,20 @@ const FilterByStatus = ({ statusFilter, onStatusFilterChange }: FilterByStatusPr
       >
         {statusFilter ? (
           <>
-            <span className={`w-2 h-2 rounded-full ${STATUS_CONFIG[statusFilter].color} shrink-0`} />
+            <span className={cn("w-2 h-2 rounded-full shrink-0", STATUS_CONFIG[statusFilter].color)} />
             {STATUS_CONFIG[statusFilter].label}
           </>
         ) : (
           "Filter by status"
         )}
-        <ChevronDownIcon className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+        <ChevronDownIcon className={cn("w-4 h-4 transition-transform", isOpen && "rotate-180")} />
       </button>
 
       {isOpen && (
         <div className="absolute right-0 top-full mt-1 w-44 bg-white rounded shadow-lg border border-gray-100 z-10 py-1">
           <button
             onClick={() => { onStatusFilterChange(null); setIsOpen(false); }}
-            className={`w-full flex items-center gap-2 px-3 py-2 text-sm text-left hover:bg-gray-50 ${statusFilter === null ? "font-medium text-gray-800" : "text-gray-600"}`}
+            className={cn("w-full flex items-center gap-2 px-3 py-2 text-sm text-left hover:bg-gray-50", statusFilter === null ? "font-medium text-gray-800" : "text-gray-600")}
           >
             All statuses
           </button>
@@ -40,9 +41,9 @@ const FilterByStatus = ({ statusFilter, onStatusFilterChange }: FilterByStatusPr
             <button
               key={s}
               onClick={() => { onStatusFilterChange(s); setIsOpen(false); }}
-              className={`w-full flex items-center gap-2 px-3 py-2 text-sm text-left hover:bg-gray-50 ${statusFilter === s ? "font-medium text-gray-800" : "text-gray-600"}`}
+              className={cn("w-full flex items-center gap-2 px-3 py-2 text-sm text-left hover:bg-gray-50", statusFilter === s ? "font-medium text-gray-800" : "text-gray-600")}
             >
-              <span className={`w-2 h-2 rounded-full ${STATUS_CONFIG[s].color} shrink-0`} />
+              <span className={cn("w-2 h-2 rounded-full shrink-0", STATUS_CONFIG[s].color)} />
               {STATUS_CONFIG[s].label}
             </button>
           ))}
