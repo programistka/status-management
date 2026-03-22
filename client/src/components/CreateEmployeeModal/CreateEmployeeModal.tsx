@@ -20,7 +20,7 @@ const CreateEmployeeModal = ({ onClose }: CreateEmployeeModalProps) => {
 
   return (
       <div
-          className="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 cursor-pointer"
           onClick={onClose}
       >
         <div
@@ -50,13 +50,13 @@ const CreateEmployeeModal = ({ onClose }: CreateEmployeeModalProps) => {
               <button
                   onClick={onClose}
                   disabled={name.trim().length === 0}
-                  className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-full text-sm font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-blue-500"
+                  className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-full text-sm font-medium transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-blue-500"
               >
                 Create
               </button>
               <button
                   onClick={onClose}
-                  className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+                  className="text-sm text-gray-500 hover:text-gray-700 transition-colors cursor-pointer"
               >
                 Cancel
               </button>

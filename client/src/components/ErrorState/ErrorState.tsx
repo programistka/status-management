@@ -11,7 +11,7 @@ const ErrorState = () => {
       <p className="text-xs text-gray-400">Check your connection and try again.</p>
       <button
         onClick={resetBoundary}
-        className="mt-2 px-4 py-1.5 text-sm text-blue-500 border border-blue-400 rounded hover:bg-blue-50 transition-colors"
+        className="mt-2 px-4 py-1.5 text-sm text-blue-500 border border-blue-400 rounded hover:bg-blue-50 transition-colors cursor-pointer"
       >
         Try again
       </button>

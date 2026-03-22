@@ -16,7 +16,7 @@ const Search = () => {
         className="flex-1 py-3.5 text-sm text-gray-600 placeholder-gray-400 focus:outline-none bg-transparent"
       />
       {query && (
-        <button onClick={() => setQuery("")} className="text-gray-400 hover:text-gray-600 transition-colors shrink-0">
+        <button onClick={() => setQuery("")} className="text-gray-400 hover:text-gray-600 transition-colors shrink-0 cursor-pointer">
           <XMarkIcon className="w-4 h-4" />
         </button>
       )}
