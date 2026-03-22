@@ -1,24 +1,9 @@
-import { useDeferredValue, useMemo } from "react";
-import { useQuery, useStatusFilter } from "../../context/FiltersContext";
-import { useEmployees } from "../../hooks/useEmployees";
-import EmployeeCard from "../EmployeeCard/EmployeeCard";
-import EmptyState from "../EmptyState/EmptyState";
+import { useFilteredEmployees } from "@/hooks/useFilteredEmployees";
+import EmployeeCard from "@/components/EmployeeCard/EmployeeCard";
+import EmptyState from "@/components/EmptyState/EmptyState";
 
 const EmployeesList = () => {
-  const { employees, updateStatus } = useEmployees();
-  const query = useQuery();
-  const statusFilter = useStatusFilter();
-  const deferredQuery = useDeferredValue(query);
-
-  const filtered = useMemo(
-    () =>
-      employees.filter(
-        ({ name, status }) =>
-          name.toLowerCase().includes(deferredQuery.toLowerCase()) &&
-          (statusFilter === null || status === statusFilter),
-      ),
-    [employees, deferredQuery, statusFilter],
-  );
+  const { filtered, updateStatus } = useFilteredEmployees();
 
   if (filtered.length === 0) return <EmptyState />;
 
