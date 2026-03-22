@@ -1,7 +1,12 @@
 import { useState } from "react";
 import CreateUserModal from "../CreateUserModal/CreateUserModal";
 
-const Search = () => {
+interface SearchProps {
+  query: string;
+  onQueryChange: (query: string) => void;
+}
+
+const Search = ({ query, onQueryChange }: SearchProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -31,6 +36,8 @@ const Search = () => {
         </svg>
         <input
           type="text"
+          value={query}
+          onChange={({ target }) => onQueryChange(target.value)}
           placeholder="Type to search"
           className="flex-1 py-3.5 text-sm text-gray-600 placeholder-gray-400 focus:outline-none bg-transparent"
         />
