@@ -1,23 +1,23 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import CreateUserModal from "./CreateUserModal";
+import CreateEmployeeModal from "./CreateEmployeeModal";
 
-describe("CreateUserModal", () => {
+describe("CreateEmployeeModal", () => {
   it("renders title", () => {
-    render(<CreateUserModal onClose={vi.fn()} />);
+    render(<CreateEmployeeModal onClose={vi.fn()} />);
 
     expect(screen.getByText("Create New User")).toBeInTheDocument();
   });
 
   it("renders name input", () => {
-    render(<CreateUserModal onClose={vi.fn()} />);
+    render(<CreateEmployeeModal onClose={vi.fn()} />);
 
     expect(screen.getByPlaceholderText("Enter user name")).toBeInTheDocument();
   });
 
   it("renders status select with all options", () => {
-    render(<CreateUserModal onClose={vi.fn()} />);
+    render(<CreateEmployeeModal onClose={vi.fn()} />);
 
     expect(screen.getByRole("combobox")).toBeInTheDocument();
     expect(screen.getByRole("option", { name: "Working" })).toBeInTheDocument();
@@ -27,24 +27,24 @@ describe("CreateUserModal", () => {
   });
 
   it("updates name input value when typing", async () => {
-    render(<CreateUserModal onClose={vi.fn()} />);
+    render(<CreateEmployeeModal onClose={vi.fn()} />);
 
     await userEvent.type(screen.getByPlaceholderText("Enter user name"), "John");
 
     expect(screen.getByDisplayValue("John")).toBeInTheDocument();
   });
 
-  it("ignores non-letter characters in name input", async () => {
-    render(<CreateUserModal onClose={vi.fn()} />);
+  it("ignores non-alphabetical characters in name input", async () => {
+    render(<CreateEmployeeModal onClose={vi.fn()} />);
 
-    await userEvent.type(screen.getByPlaceholderText("Enter user name"), "John123!");
+    await userEvent.type(screen.getByPlaceholderText("Enter user name"), "John123! Smith");
 
-    expect(screen.getByDisplayValue("John")).toBeInTheDocument();
+    expect(screen.getByDisplayValue("JohnSmith")).toBeInTheDocument();
   });
 
   it("calls onClose when Cancel is clicked", async () => {
     const onClose = vi.fn();
-    render(<CreateUserModal onClose={onClose} />);
+    render(<CreateEmployeeModal onClose={onClose} />);
 
     await userEvent.click(screen.getByRole("button", { name: /cancel/i }));
 
@@ -53,7 +53,7 @@ describe("CreateUserModal", () => {
 
   it("calls onClose when backdrop is clicked", async () => {
     const onClose = vi.fn();
-    const { container } = render(<CreateUserModal onClose={onClose} />);
+    const { container } = render(<CreateEmployeeModal onClose={onClose} />);
 
     await userEvent.click(container.firstChild as HTMLElement);
 

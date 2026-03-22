@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PlusIcon } from "@heroicons/react/20/solid";
-import CreateUserModal from "../CreateUserModal/CreateUserModal";
+import CreateEmployeeModal from "../CreateEmployeeModal/CreateEmployeeModal";
 
 const CreateButton = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,7 +14,7 @@ const CreateButton = () => {
         Create
         <PlusIcon className="w-4 h-4" />
       </button>
-      {isModalOpen && <CreateUserModal onClose={() => setIsModalOpen(false)} />}
+      {isModalOpen && <CreateEmployeeModal onClose={() => setIsModalOpen(false)} />}
     </>
   );
 };

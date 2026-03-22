@@ -3,14 +3,14 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import  { type Status, STATUSES } from "../../types.ts"
 import { STATUS_CONFIG } from "../../statusConfig.ts";
 
-interface CreateUserModalProps {
+interface CreateEmployeeModalProps {
   onClose: () => void;
 }
 
 const isStatus = (value: string): value is Status =>
     STATUSES.includes(value as Status);
 
-const CreateUserModal = ({ onClose }: CreateUserModalProps) => {
+const CreateEmployeeModal = ({ onClose }: CreateEmployeeModalProps) => {
   const [name, setName] = useState("");
   const [status, setStatus] = useState<Status>("Working");
 
@@ -31,7 +31,7 @@ const CreateUserModal = ({ onClose }: CreateUserModalProps) => {
               <input
                   type="text"
                   value={name}
-                  onChange={(e) => setName(e.target.value.replace(/[^a-zA-Z ]/g, ""))}
+                  onChange={(e) => setName(e.target.value.replace(/[^a-zA-Z]/g, ""))}
                   placeholder="Enter user name"
                   className="w-full border-0 border-b border-gray-200 pb-2 text-gray-800 text-base focus:outline-none focus:border-blue-400 transition-colors"
               />
@@ -77,4 +77,4 @@ const CreateUserModal = ({ onClose }: CreateUserModalProps) => {
   );
 };
 
-export default CreateUserModal;
+export default CreateEmployeeModal;
