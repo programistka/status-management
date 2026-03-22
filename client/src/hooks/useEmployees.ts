@@ -1,4 +1,4 @@
-import { use, useOptimistic, useState, useTransition } from "react";
+import { use, useCallback, useOptimistic, useState, useTransition } from "react";
 import { type Status, type Employee } from "../types";
 
 const fetchEmployees = async (): Promise<Employee[]> => {
@@ -21,7 +21,7 @@ export const useEmployees = () => {
       state.map((e) => (e.id === id ? { ...e, status } : e)),
   );
 
-  const updateStatus = (id: number, status: Status) => {
+  const updateStatus = useCallback((id: number, status: Status) => {
     startTransition(async () => {
       setOptimisticStatus({ id, status });
       await fetch(`http://localhost:3001/users/${id}`, {
@@ -33,7 +33,7 @@ export const useEmployees = () => {
         prev.map((e) => (e.id === id ? { ...e, status } : e)),
       );
     });
-  };
+  }, [setOptimisticStatus]);
 
   return { employees: optimisticEmployees, updateStatus };
 };

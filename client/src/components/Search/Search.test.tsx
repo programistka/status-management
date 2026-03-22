@@ -1,42 +1,48 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { FiltersProvider } from "../../context/FiltersContext";
 import Search from "./Search";
+
+const wrapper = ({ children }: { children: React.ReactNode }) => (
+  <FiltersProvider>{children}</FiltersProvider>
+);
 
 describe("Search", () => {
   it("renders input with placeholder", () => {
-    render(<Search query="" onQueryChange={vi.fn()} />);
+    render(<Search />, { wrapper });
 
     expect(screen.getByPlaceholderText("Type to search")).toBeInTheDocument();
   });
 
-  it("calls onQueryChange when typing", async () => {
-    const onQueryChange = vi.fn();
-    render(<Search query="" onQueryChange={onQueryChange} />);
+  it("updates input value when typing", async () => {
+    render(<Search />, { wrapper });
 
     await userEvent.type(screen.getByPlaceholderText("Type to search"), "John");
 
-    expect(onQueryChange).toHaveBeenCalled();
+    expect(screen.getByDisplayValue("John")).toBeInTheDocument();
   });
 
   it("does not show clear button when query is empty", () => {
-    render(<Search query="" onQueryChange={vi.fn()} />);
+    render(<Search />, { wrapper });
 
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
   });
 
-  it("shows clear button when query is not empty", () => {
-    render(<Search query="John" onQueryChange={vi.fn()} />);
+  it("shows clear button when query is not empty", async () => {
+    render(<Search />, { wrapper });
+
+    await userEvent.type(screen.getByPlaceholderText("Type to search"), "John");
 
     expect(screen.getByRole("button")).toBeInTheDocument();
   });
 
-  it("calls onQueryChange with empty string when clear button is clicked", async () => {
-    const onQueryChange = vi.fn();
-    render(<Search query="John" onQueryChange={onQueryChange} />);
+  it("clears input when clear button is clicked", async () => {
+    render(<Search />, { wrapper });
 
+    await userEvent.type(screen.getByPlaceholderText("Type to search"), "John");
     await userEvent.click(screen.getByRole("button"));
 
-    expect(onQueryChange).toHaveBeenCalledWith("");
+    expect(screen.getByDisplayValue("")).toBeInTheDocument();
   });
 });

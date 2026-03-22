@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { type Status, STATUSES } from "../../types";
 import { STATUS_CONFIG } from "../../statusConfig";
@@ -9,7 +9,7 @@ interface StatusDropdownProps {
   onStatusChange: (status: Status) => void;
 }
 
-const StatusDropdown = ({ status, onStatusChange }: StatusDropdownProps) => {
+const StatusDropdown = memo(({ status, onStatusChange }: StatusDropdownProps) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -64,6 +64,6 @@ const StatusDropdown = ({ status, onStatusChange }: StatusDropdownProps) => {
       )}
     </div>
   );
-};
+});
 
 export default StatusDropdown;

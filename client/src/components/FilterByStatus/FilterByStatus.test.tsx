@@ -1,23 +1,22 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { FiltersProvider } from "../../context/FiltersContext";
 import FilterByStatus from "./FilterByStatus";
+
+const wrapper = ({ children }: { children: React.ReactNode }) => (
+  <FiltersProvider>{children}</FiltersProvider>
+);
 
 describe("FilterByStatus", () => {
   it("renders default label when no filter selected", () => {
-    render(<FilterByStatus statusFilter={null} onStatusFilterChange={vi.fn()} />);
+    render(<FilterByStatus />, { wrapper });
 
     expect(screen.getByText("Filter by status")).toBeInTheDocument();
   });
 
-  it("renders active filter label", () => {
-    render(<FilterByStatus statusFilter="Working" onStatusFilterChange={vi.fn()} />);
-
-    expect(screen.getByText("Working")).toBeInTheDocument();
-  });
-
   it("shows all statuses and reset option after click", async () => {
-    render(<FilterByStatus statusFilter={null} onStatusFilterChange={vi.fn()} />);
+    render(<FilterByStatus />, { wrapper });
 
     await userEvent.click(screen.getByRole("button"));
 
@@ -27,23 +26,24 @@ describe("FilterByStatus", () => {
     expect(screen.getByText("Business Trip")).toBeInTheDocument();
   });
 
-  it("calls onStatusFilterChange with selected status", async () => {
-    const onStatusFilterChange = vi.fn();
-    render(<FilterByStatus statusFilter={null} onStatusFilterChange={onStatusFilterChange} />);
+  it("shows selected status label after selection", async () => {
+    render(<FilterByStatus />, { wrapper });
 
     await userEvent.click(screen.getByRole("button"));
     await userEvent.click(screen.getByText("On Vacation"));
 
-    expect(onStatusFilterChange).toHaveBeenCalledWith("OnVacation");
+    expect(screen.getByText("On Vacation")).toBeInTheDocument();
+    expect(screen.queryByText("Filter by status")).not.toBeInTheDocument();
   });
 
-  it("calls onStatusFilterChange with null when All statuses is clicked", async () => {
-    const onStatusFilterChange = vi.fn();
-    render(<FilterByStatus statusFilter="Working" onStatusFilterChange={onStatusFilterChange} />);
+  it("resets to default label after selecting All statuses", async () => {
+    render(<FilterByStatus />, { wrapper });
 
+    await userEvent.click(screen.getByRole("button"));
+    await userEvent.click(screen.getByText("Working"));
     await userEvent.click(screen.getByRole("button"));
     await userEvent.click(screen.getByText("All statuses"));
 
-    expect(onStatusFilterChange).toHaveBeenCalledWith(null);
+    expect(screen.getByText("Filter by status")).toBeInTheDocument();
   });
 });

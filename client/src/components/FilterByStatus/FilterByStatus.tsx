@@ -1,15 +1,13 @@
 import { useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { type Status, STATUSES } from "../../types";
+import { useStatusFilter, useSetStatusFilter } from "../../context/FiltersContext";
+import { STATUSES } from "../../types";
 import { STATUS_CONFIG } from "../../statusConfig";
 import { cn } from "../../lib/cn";
 
-interface FilterByStatusProps {
-  statusFilter: Status | null;
-  onStatusFilterChange: (status: Status | null) => void;
-}
-
-const FilterByStatus = ({ statusFilter, onStatusFilterChange }: FilterByStatusProps) => {
+const FilterByStatus = () => {
+  const statusFilter = useStatusFilter();
+  const setStatusFilter = useSetStatusFilter();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -32,7 +30,7 @@ const FilterByStatus = ({ statusFilter, onStatusFilterChange }: FilterByStatusPr
       {isOpen && (
         <div className="absolute right-0 top-full mt-1 w-44 bg-white rounded shadow-lg border border-gray-100 z-10 py-1">
           <button
-            onClick={() => { onStatusFilterChange(null); setIsOpen(false); }}
+            onClick={() => { setStatusFilter(null); setIsOpen(false); }}
             className={cn("w-full flex items-center gap-2 px-3 py-2 text-sm text-left hover:bg-gray-50", statusFilter === null ? "font-medium text-gray-800" : "text-gray-600")}
           >
             All statuses
@@ -40,7 +38,7 @@ const FilterByStatus = ({ statusFilter, onStatusFilterChange }: FilterByStatusPr
           {STATUSES.map((s) => (
             <button
               key={s}
-              onClick={() => { onStatusFilterChange(s); setIsOpen(false); }}
+              onClick={() => { setStatusFilter(s); setIsOpen(false); }}
               className={cn("w-full flex items-center gap-2 px-3 py-2 text-sm text-left hover:bg-gray-50", statusFilter === s ? "font-medium text-gray-800" : "text-gray-600")}
             >
               <span className={cn("w-2 h-2 rounded-full shrink-0", STATUS_CONFIG[s].color)} />
