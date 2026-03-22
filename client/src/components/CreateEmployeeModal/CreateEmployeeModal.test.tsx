@@ -42,6 +42,20 @@ describe("CreateEmployeeModal", () => {
     expect(screen.getByDisplayValue("JohnSmith")).toBeInTheDocument();
   });
 
+  it("disables Create button when name is empty", () => {
+    render(<CreateEmployeeModal onClose={vi.fn()} />);
+
+    expect(screen.getByRole("button", { name: /create/i })).toBeDisabled();
+  });
+
+  it("enables Create button when name is not empty", async () => {
+    render(<CreateEmployeeModal onClose={vi.fn()} />);
+
+    await userEvent.type(screen.getByPlaceholderText("Enter user name"), "John");
+
+    expect(screen.getByRole("button", { name: /create/i })).toBeEnabled();
+  });
+
   it("calls onClose when Cancel is clicked", async () => {
     const onClose = vi.fn();
     render(<CreateEmployeeModal onClose={onClose} />);
