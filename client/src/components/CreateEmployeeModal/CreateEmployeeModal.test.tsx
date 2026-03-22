@@ -56,6 +56,15 @@ describe("CreateEmployeeModal", () => {
     expect(screen.getByRole("button", { name: /create/i })).toBeEnabled();
   });
 
+  it("calls onClose when Escape is pressed", async () => {
+    const onClose = vi.fn();
+    render(<CreateEmployeeModal onClose={onClose} />);
+
+    await userEvent.keyboard("{Escape}");
+
+    expect(onClose).toHaveBeenCalled();
+  });
+
   it("calls onClose when Cancel is clicked", async () => {
     const onClose = vi.fn();
     render(<CreateEmployeeModal onClose={onClose} />);

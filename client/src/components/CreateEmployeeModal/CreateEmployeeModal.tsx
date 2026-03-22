@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import  { type Status, STATUSES } from "../../types.ts"
 import { STATUS_CONFIG } from "../../statusConfig.ts";
@@ -13,6 +13,14 @@ const isStatus = (value: string): value is Status =>
 const CreateEmployeeModal = ({ onClose }: CreateEmployeeModalProps) => {
   const [name, setName] = useState("");
   const [status, setStatus] = useState<Status>("Working");
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
 
   return (
       <div
