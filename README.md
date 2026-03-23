@@ -1,73 +1,82 @@
-# React + TypeScript + Vite
+# Employee Status Management
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack app for viewing and managing employee statuses in real time.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**Client:** React 19, TypeScript, Vite, Tailwind CSS, Vitest
+**Server:** Node.js, Express, TypeScript
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Server
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cd server
+npm install
+npm run dev      # tsx watch — restarts on file changes
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Server runs on `http://localhost:3001`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Client
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cd client
+pnpm install
+pnpm dev
 ```
+
+Client runs on `http://localhost:5173`.
+
+Requires a `.env` file in the `client/` directory:
+
+```
+VITE_API_URL=http://localhost:3001
+```
+
+An `.env.example` file is provided as a template.
+
+## Features
+
+- View a list of all employees with their current status
+- Filter employees by status
+- Search employees by name
+- Change an employee's status — updates the server via `PATCH /users/:id` with optimistic UI
+- Create New User modal (UI only — closes on Create or Cancel)
+
+## Running Tests
+
+```bash
+cd client
+pnpm test         # watch mode
+pnpm test:run     # single run
+```
+
+## Project Structure
+
+```
+├── client/               # React app
+│   └── src/
+│       ├── components/   # UI components
+│       ├── context/      # FiltersContext (search + status filter)
+│       ├── hooks/        # useEmployees, useFilteredEmployees, useDropdown
+│       ├── lib/          # cn() utility
+│       └── types.ts      # Shared types
+└── server/
+    └── server.ts         # Express REST API
+```
+
+## API
+
+| Method | Endpoint         | Description               |
+|--------|------------------|---------------------------|
+| GET    | `/users`         | Returns all employees     |
+| PATCH  | `/users/:id`     | Updates employee status   |
+
+Request body for PATCH:
+```json
+{ "status": "Working" }
+```
+
+Available statuses: `Working`, `OnVacation`, `LunchTime`, `BusinessTrip`
