@@ -45,7 +45,7 @@ describe("CreateEmployeeModal", () => {
 
     await userEvent.type(screen.getByPlaceholderText("Enter user name"), "John123! Smith");
 
-    expect(screen.getByDisplayValue("JohnSmith")).toBeInTheDocument();
+    expect(screen.getByDisplayValue("John Smith")).toBeInTheDocument();
   });
 
   it("disables Create button when name is empty", () => {
