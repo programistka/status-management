@@ -9,25 +9,13 @@ A full-stack app for viewing and managing employee statuses in real time.
 
 ## Getting Started
 
-### Server
-
 ```bash
-cd server
-npm install
-npm run dev      # tsx watch — restarts on file changes
+pnpm install:all   # install dependencies for both server and client
+pnpm dev           # start server and client concurrently
 ```
 
-Server runs on `http://localhost:3001`.
-
-### Client
-
-```bash
-cd client
-pnpm install
-pnpm dev
-```
-
-Client runs on `http://localhost:5173`.
+- Client: `http://localhost:5173`
+- Server: `http://localhost:3001`
 
 Requires a `.env` file in the `client/` directory:
 
