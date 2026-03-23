@@ -4,7 +4,7 @@ import { FiltersProvider } from "@/context/FiltersContext";
 import { useEmployees } from "@/hooks/useEmployees";
 import EmployeesList from "./EmployeesList";
 
-vi.mock("@/hooks/useEmployees");
+vi.mock("@/hooks/useEmployees", () => ({ useEmployees: vi.fn() }));
 
 const mockEmployees = [
   { id: 1, name: "John Doe", img: "/john.jpg", status: "Working" as const },

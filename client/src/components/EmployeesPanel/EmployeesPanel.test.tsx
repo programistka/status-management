@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import EmployeesPanel from "./EmployeesPanel";
 import { useEmployees } from "@/hooks/useEmployees";
 
-vi.mock("@/hooks/useEmployees");
+vi.mock("@/hooks/useEmployees", () => ({ useEmployees: vi.fn() }));
 
 const mockEmployees = [
   { id: 1, name: "John Doe", img: "/john.jpg", status: "Working" as const },

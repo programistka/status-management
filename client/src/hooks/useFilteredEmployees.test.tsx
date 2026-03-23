@@ -6,7 +6,7 @@ import { useEmployees } from "@/hooks/useEmployees";
 import { useSetQuery, useSetStatusFilter } from "@/context/FiltersContext";
 import { useFilteredEmployees } from "./useFilteredEmployees";
 
-vi.mock("@/hooks/useEmployees");
+vi.mock("@/hooks/useEmployees", () => ({ useEmployees: vi.fn() }));
 
 const mockEmployees = [
   { id: 1, name: "John Doe", img: "/john.jpg", status: "Working" as const },
